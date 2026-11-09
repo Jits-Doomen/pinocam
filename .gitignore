@@ -1,0 +1,17 @@
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+__pycache__/
+*.py[cod]
+build/
+out/
+*.exe
+*.obj
+
+tle_cache.txt
+test_run*/
+
+extra/conjunction_dataset.csv
+*.csv

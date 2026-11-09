@@ -1,0 +1,8 @@
+{
+  "name": "pino-test",
+  "version": "0.1.0",
+  "dependencies": [
+    "onnxruntime"
+  ],
+  "builtin-baseline": "4493042c759d3bdff26164695dbee500d1e696c8"
+}
