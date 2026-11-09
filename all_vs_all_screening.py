@@ -43,7 +43,6 @@ def get_tle_data(url=TLE_URL):
 
     tle_data = None
 
-    # Check whether a previous successful download exists.
     if TLE_Cache_File.exists():
 
         cache_age = time.time() - TLE_Cache_File.stat().st_mtime
@@ -66,7 +65,6 @@ def get_tle_data(url=TLE_URL):
                 f"({cache_age / 3600:.2f} hours old)."
             )
 
-    # Download fresh data if the cache is missing or expired.
     if tle_data is None:
 
         print("Fetching TLE data from CelesTrak...")
@@ -85,7 +83,6 @@ def get_tle_data(url=TLE_URL):
 
             tle_data = response.text
 
-            # Save only after a successful download.
             TLE_Cache_File.write_text(
                 tle_data,
                 encoding="utf-8"
@@ -95,7 +92,6 @@ def get_tle_data(url=TLE_URL):
 
         except requests.RequestException as exc:
 
-            # If downloading fails, fall back to existing data.
             if TLE_Cache_File.exists():
 
                 print(
@@ -112,7 +108,6 @@ def get_tle_data(url=TLE_URL):
                     "CelesTrak download failed and no cache exists."
                 ) from exc
 
-    # Parse TLE data.
     lines = [
         line.strip()
         for line in tle_data.splitlines()
@@ -173,16 +168,6 @@ def get_tle_data(url=TLE_URL):
 
 def compute_lvlh_to_eci(r, v):
 
-## Now I construct the LVLH-to-ECI rotation matrix.
-## LVLH convention:
-## X = Radial
-## Y = Along-track
-## Z = Cross-track
-## Columns of the returned matrix are the LVLH
-## basis vectors expressed in ECI coordinates.
-
-
-## Turns 1-d r and 1-d v into 1-d arrays with 3 floats
     r = np.asarray(r, dtype=float).reshape(3)
     v = np.asarray(v, dtype=float).reshape(3)
 
